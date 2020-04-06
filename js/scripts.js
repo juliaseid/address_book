@@ -17,7 +17,7 @@ AddressBook.prototype.assignId = function(contact) {
 AddressBook.prototype.findContact = function(id) {
   for (var i=0; i< this.contacts.length; i++) {
     if (this.contacts[i]) {
-    if (this.contacts[i].id == id) {
+    if (this.contacts[i].id === id) {
       return this.contacts[i];
     }
    }
@@ -28,7 +28,7 @@ AddressBook.prototype.findContact = function(id) {
 AddressBook.prototype.deleteContact = function(id) {
   for (var i=0; i<this.contacts.length; i++) {    
     if (this.contacts[i]) {
-      if (this.contacts[i].id == id){
+      if (this.contacts[i].id === id){
       delete this.contacts[i];
       return true;
       }
@@ -46,6 +46,20 @@ function Contact(firstName, lastName, phoneNumber) {
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
+}
+
+Contact.prototype.update = function(AddressBook, firstName, lastName, phoneNumber) {
+  for (var i=0; i < AddressBook.contacts.length; i++) {
+    if (AddressBook.contacts[i]) {
+      if (AddressBook.contacts[i].id === this.id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 
