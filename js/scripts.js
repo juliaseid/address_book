@@ -38,13 +38,26 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber, email, street, city) {
+function Contact(firstName, lastName, phoneNumber, email) {
   this.firstName = firstName,
   this.lastName = lastName,
   this.phoneNumber = phoneNumber,
   this.email = email,
+  this.addresses = []
+}
+
+function Address(street, city, workHome) {
   this.street = street,
-  this.city = city
+  this.city = city,
+  this.workHome = workHome
+}
+
+Address.prototype.StreetAddress = function() {
+return this.workHome + ": " + this.street + ", " + this.city;
+}
+
+Contact.prototype.addAddress = function(address) {
+  this.addresses.push(address.StreetAddress);
 }
 
 // function ExampleMultiple (multi1, multi2, multi3) {
@@ -53,13 +66,10 @@ function Contact(firstName, lastName, phoneNumber, email, street, city) {
 
 
 
-Contact.prototype.fullName = function() {
-  return this.firstName + " " + this.lastName;
-}
+// Contact.prototype.fullName = function() {
+//   return this.firstName + " " + this.lastName;
+// }
 
-Contact.prototype.streetAddress = function() {
-  return this.street + ", " + this.city;
-}
 
 // User Interface Logic ---------
 var addressBook = new AddressBook();
@@ -72,6 +82,8 @@ function displayContactDetails(addressBookToDisplay) {
   });
   contactsList.html(htmlForContactInfo);
 };
+
+//
 
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
@@ -120,5 +132,7 @@ $(document).ready(function() {
 
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
-  })
-})
+  });
+  });
+  //var newAddress = $("input#street1").val() + ", " $
+  //contact.addAddress(newAddress);
