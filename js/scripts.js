@@ -47,6 +47,12 @@ function Contact(firstName, lastName, phoneNumber, email, street, city) {
   this.city = city
 }
 
+// function ExampleMultiple (multi1, multi2, multi3) {
+//   this.multi1 = multi1;
+// }
+
+
+
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
@@ -109,6 +115,9 @@ $(document).ready(function() {
     $("input#new-street").val("");
     $("input#new-city").val("");
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedStreetAddress, inputtedCityZip);
+
+    // var multiNew = new ExampleMultiple (multi1, multi2)
+
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   })
