@@ -57,7 +57,7 @@ return this.workHome + ": " + this.street + ", " + this.city;
 }
 
 Contact.prototype.addAddress = function(address) {
-  this.addresses.push(address.StreetAddress);
+  this.addresses.push(address);
 }
 
 // function ExampleMultiple (multi1, multi2, multi3) {
@@ -94,6 +94,7 @@ function showContact(contactId) {
   $(".email").html(contact.email);
   $(".street-address").html(contact.street);
   $(".city-zip").html(contact.city);
+  $(".work-home").html(contact.workHome);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
@@ -120,13 +121,19 @@ $(document).ready(function() {
     var inputtedEmail = $("input#new-email").val();
     var inputtedStreetAddress = $("input#new-street").val();
     var inputtedCityZip = $("input#new-city").val();
+    var AddressWorkHome = $("#work-home").val();
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
     $("input#new-email").val("");
     $("input#new-street").val("");
     $("input#new-city").val("");
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedStreetAddress, inputtedCityZip);
+    console.log("Inputs: ", inputtedStreetAddress, inputtedCityZip);
+    var myAddress = new Address(inputtedStreetAddress, inputtedCityZip, AddressWorkHome);
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail);
+    newContact.addAddress(myAddress);
+    console.log("Address object: ", myAddress);
+    console.log("Contact: ", newContact);
 
     // var multiNew = new ExampleMultiple (multi1, multi2)
 
