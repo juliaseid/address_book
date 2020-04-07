@@ -79,6 +79,9 @@ function displayContactDetails(addressBookToDisplay) {
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+    contact.addresses.forEach(function(address) {
+      console.log(address);
+    })
   });
   contactsList.html(htmlForContactInfo);
 };
@@ -95,6 +98,7 @@ function showContact(contactId) {
   $(".street-address").html(contact.street);
   $(".city-zip").html(contact.city);
   $(".work-home").html(contact.workHome);
+  $(".address").html(contact.addresses);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
