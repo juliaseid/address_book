@@ -50,21 +50,23 @@ function Address(street, city, workHome) {
   this.street = street,
   this.city = city,
   this.workHome = workHome
+  this.currentId = 0
 }
 
-Address.prototype.StreetAddress = function() {
-return this.workHome + ": " + this.street + ", " + this.city;
+Contact.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
 }
+
 
 Contact.prototype.addAddress = function(address) {
+  address.id = this.assignId();
   this.addresses.push(address);
 }
 
-// function ExampleMultiple (multi1, multi2, multi3) {
-//   this.multi1 = multi1;
-// }
-
-
+Address.prototype.StreetAddress = function() {
+  return this.workHome + ": " + this.street + ", " + this.city;
+  }
 
 // Contact.prototype.fullName = function() {
 //   return this.firstName + " " + this.lastName;
@@ -79,9 +81,6 @@ function displayContactDetails(addressBookToDisplay) {
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-    contact.addresses.forEach(function(address) {
-      console.log(address);
-    })
   });
   contactsList.html(htmlForContactInfo);
 };
@@ -90,6 +89,11 @@ function displayContactDetails(addressBookToDisplay) {
 
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
+  var htmlForAddresses = "";
+  contact.addresses.forEach(function(address) {
+    console.log("address: ", address.id);
+    htmlForAddresses += address.id.StreetAddress();
+  });
   $("#show-contact").show();
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
@@ -98,7 +102,7 @@ function showContact(contactId) {
   $(".street-address").html(contact.street);
   $(".city-zip").html(contact.city);
   $(".work-home").html(contact.workHome);
-  $(".address").html(contact.addresses);
+  $(".address").html(htmlForAddresses);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
